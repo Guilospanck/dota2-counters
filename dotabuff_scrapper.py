@@ -149,7 +149,7 @@ def dotaBuffScrapping(hero):
     heroesOfTr.reverse()
 
     if heroesOfTr is not None:
-        temp = []
+        temp = [hero]
         for hero in heroesOfTr:
             value = hero.find("td").find("a").find("img")['alt']
             if value == "Nature's Prophet":
@@ -160,7 +160,8 @@ def dotaBuffScrapping(hero):
 
 def savefile():
     save_text = open("countersByHero", 'w')
-    save_text.write(",".join(str(x) for x in counters))
+    for counter in counters:
+        save_text.write(str(counter[0]) + ": " + str(counter[1:]) + "\n")
     save_text.close()
 
 def doLoopThroughHeroes():    
