@@ -3,6 +3,7 @@
     Script used to scrap the Dota Buff website to retrieve counters of some hero.
     Created: Oct, 21 2020.
 """
+import sys
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -170,4 +171,26 @@ def doLoopThroughHeroes():
         time.sleep(1)
     savefile()
 
-doLoopThroughHeroes()
+def herofinder(myhero):
+    for hero in heroes:
+        if hero == myhero:
+            dotaBuffScrapping(hero)
+            time.sleep(1)
+            savefile()
+            return True
+    return False
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        doLoopThroughHeroes()
+        print("DotaBuffScrapping Done! Open countersByHero file to check out the results")
+
+    elif len(sys.argv) == 2:
+        h = sys.argv[1]
+        if herofinder(h):
+                    print(f"DotaBuffScrapping Done! Open countersByHero file to check {h}'s counters")
+        else:
+            print("Error: Hero Not Found")
+
+    else:
+        print("Error: unknown hero")
